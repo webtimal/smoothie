@@ -1,0 +1,18 @@
+{
+  "name": "smoothie",
+  "version": "1.0.0",
+  "description": "Smooth Scroll Library",
+  "author": "Webtimal GmbH <info@webtimal.ch>",
+  "license": "Unlicense",
+  "private": true,
+  "scripts": {
+    "watch": "webpack --watch --mode production"
+  },
+  "devDependencies": {
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "jquery": "^3.5.1"
+  }
+}
