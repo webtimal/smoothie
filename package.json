@@ -1,10 +1,10 @@
 {
   "name": "smoothie",
   "version": "1.0.0",
-  "description": "Smooth Scroll Library",
   "author": "Webtimal GmbH <info@webtimal.ch>",
   "license": "Unlicense",
-  "private": true,
+  "description": "Smooth Scroll Library",
+  "main": "src/smoothie.js",
   "scripts": {
     "watch": "webpack --watch --mode production"
   },
@@ -13,6 +13,14 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "jquery": "^3.5.1"
-  }
+    "smooth-scrollbar": "^8.5.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webtimal/smoothie.git"
+  },
+  "bugs": {
+    "url": "https://github.com/webtimal/smoothie/issues"
+  },
+  "homepage": "https://github.com/webtimal/smoothie#readme"
 }

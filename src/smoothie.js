@@ -1,21 +1,13 @@
-import jQuery from 'jquery'
-
-jQuery($ => new Smoothie)
-
 class Smoothie
 {
-    constructor()
+    constructor(speed, smoothness)
     {
-        this.tar = (
-            document.scrollingElement ||
-            document.documentElement ||
-            document.body.parentNode ||
-            document.body
-        )
-
+        this.tar = document.documentElement
         this.pos = this.tar.scrollTop
         this.mov = false
-        this.spd = 80
+        this.scr = false
+        this.spd = speed
+        this.smt = smoothness
 
         this.bindEvents()
     }
@@ -28,6 +20,24 @@ class Smoothie
                 passive: false
             })
         }
+
+        window.addEventListener('mousedown', e =>
+        {
+            if(e.offsetX > e.target.clientWidth)
+            {
+                this.scr = true
+                this.pos = scrollY
+            }
+        })
+
+        window.addEventListener('mouseup', e =>
+        {
+            if(this.scr)
+            {
+                this.scr = false
+                this.pos = scrollY
+            }
+        })
     }
 
     onScroll(e)
@@ -35,8 +45,8 @@ class Smoothie
         e.preventDefault()
 
         let min = this.tar.scrollHeight - this.tar.clientHeight
-
-        this.pos -= this.normalizeDelta(e) * this.spd
+        
+        this.pos += this.normalizeDelta(e) * this.spd
 
         this.pos = Math.max(0, Math.min(this.pos, min))
 
@@ -48,46 +58,24 @@ class Smoothie
 
     normalizeDelta(e)
     {
-        if(e.detail)
-        {
-            if(e.wheelDelta)
-            {
-                return e.wheelDelta / e.detail / 40 * (e.detail > 0 ? 1 : -1)
-            }
-
-            return -e.detail / 3
-        }
-
-        return e.wheelDelta / 120
+        return Math.sign(e.detail || e.deltaY || e.wheelDelta)
     }
 
     update() 
     {
         this.mov = true
 
-        let delta = (this.pos - this.tar.scrollTop) * .08
+        let delta = (this.pos - this.tar.scrollTop) * this.smt
 
         this.tar.scrollTop += delta
 
         if(Math.abs(delta) > .5)
         {
-            this.getFrameCallback()(this.update.bind(this))
+            requestAnimationFrame(this.update.bind(this))
         }
         else
         {
             this.mov = false
         }
-    }
-
-    getFrameCallback()
-    {
-        return (
-            window.requestAnimationFrame ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame ||
-            window.oRequestAnimationFrame ||
-            window.msRequestAnimationFrame ||
-            (f => setTimeout(f, 20))
-        )
     }
 }
