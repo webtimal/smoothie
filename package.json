@@ -4,7 +4,7 @@
   "author": "Webtimal GmbH <info@webtimal.ch>",
   "license": "Unlicense",
   "description": "Smooth Scroll Library",
-  "main": "src/smoothie.js",
+  "main": "dist/smoothie.js",
   "scripts": {
     "watch": "webpack --watch --mode production"
   },
