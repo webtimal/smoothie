@@ -1,6 +1,6 @@
 module.exports = class Smoothie
 {
-    constructor(speed = 90, smoothness = .08)
+    constructor(speed = 200, smoothness = .08)
     {
         this.tar = document.documentElement
         this.pos = this.tar.scrollTop
