@@ -1,4 +1,4 @@
-class Smoothie
+export default class Smoothie
 {
     constructor(speed, smoothness)
     {
