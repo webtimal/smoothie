@@ -1,4 +1,4 @@
-module.exports = class Smoothie
+export default class Smoothie
 {
     constructor(speed = 90, smoothness = .08)
     {
