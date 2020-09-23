@@ -12,9 +12,7 @@
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
   },
-  "dependencies": {
-    "smooth-scrollbar": "^8.5.3"
-  },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/webtimal/smoothie.git"
