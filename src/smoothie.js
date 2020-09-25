@@ -23,7 +23,7 @@ class Smoothie
         {
             this.tar.addEventListener(event, this.onScroll.bind(this), {
                 passive: false
-            })
+            }) 
         }
 
         window.addEventListener('mousedown', e =>
@@ -93,7 +93,7 @@ class Smoothie
     {
         e.preventDefault()
 
-        let id = e.target.getAttribute('href').replace('#', '')
+        let id = e.currentTarget.getAttribute('href').replace('#', '')
 
         this.scrollToId(id)
     }
