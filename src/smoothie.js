@@ -1,13 +1,18 @@
-module.exports = class Smoothie
+class Smoothie
 {
     constructor(speed = 200, smoothness = .08)
     {
         this.tar = document.documentElement
         this.pos = this.tar.scrollTop
         this.mov = false
-        this.scr = false
+        this.scr = false 
         this.spd = speed
         this.smt = smoothness
+
+        if ('scrollRestoration' in history)
+        {
+            history.scrollRestoration = 'manual'
+        }
 
         this.bindEvents()
     }
@@ -38,6 +43,11 @@ module.exports = class Smoothie
                 this.pos = scrollY
             }
         })
+
+        document.querySelectorAll('a[href^="#"]').forEach(a =>
+        {
+            a.addEventListener('click', this.onAnchorClick.bind(this))
+        })
     }
 
     onScroll(e)
@@ -56,7 +66,7 @@ module.exports = class Smoothie
         }
     }
 
-    normalizeDelta(e)
+    normalizeDelta(e) 
     {
         return Math.sign(e.detail || e.deltaY || e.wheelDelta)
     }
@@ -67,15 +77,43 @@ module.exports = class Smoothie
 
         let delta = (this.pos - this.tar.scrollTop) * this.smt
 
+        if(Math.abs(delta) < .5 && this.pos > 0 && this.pos < this.tar.scrollHeight)
+        {
+            return this.mov = false
+        }
+
+        delta = delta > 0 ? Math.ceil(delta) : Math.floor(delta)
+
         this.tar.scrollTop += delta
 
-        if(Math.abs(delta) > .5)
-        {
-            requestAnimationFrame(this.update.bind(this))
-        }
-        else
-        {
-            this.mov = false
-        }
+        requestAnimationFrame(this.update.bind(this))
+    }
+
+    onAnchorClick(e)
+    {
+        e.preventDefault()
+
+        let id = e.target.getAttribute('href').replace('#', '')
+
+        this.scrollToId(id)
+    }
+
+    scrollToId(id)
+    {
+        this.scrollTo(document.getElementById(id).offsetTop)
+    }
+
+    scrollTo(y)
+    {
+        window.scrollTo({
+            top: y,
+            behavior: 'smooth' 
+        })
+
+        this.pos = y
     }
 }
+
+window.Smoothie = Smoothie
+
+module.exports = Smoothie
